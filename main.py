@@ -14,7 +14,6 @@ import cloudinary.uploader
 from db import favourites_collection
 from utils import replace_mongo_id
 
-# --- Load environment variables from a .env file ---
 load_dotenv()
 
 # --- Configure Cloudinary ---
@@ -191,9 +190,6 @@ def save_favorite_country(
         image_public_id=image_public_id,
     )
     
-    # --- THE FIX ---
-    # Use model_dump(mode='json') to convert Pydantic types like HttpUrl to
-    # plain strings before sending the data to MongoDB.
     doc_to_insert = favorite_doc.model_dump(mode='json', by_alias=True, exclude={"id"})
 
     db_result = favourites_collection.insert_one(doc_to_insert)
