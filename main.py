@@ -98,7 +98,7 @@ def fetch_country_from_api(name: str) -> Optional[CountryData]:
 # --- Home Endpoint ---
 @app.get("/", tags=["Home"], summary="Welcome Message")
 def read_root():
-    return {"message": "Welcome to the Country Explorer API!"}
+    return {"message": "Welcome to the Queen's Country Explorer API!"}
 
 # --- Country Information Endpoints ---
 @app.get(
@@ -252,7 +252,6 @@ def update_favorite_country(
             cloudinary.uploader.destroy(existing_favorite["image_public_id"])
         
         upload_result = cloudinary.uploader.upload(favorite_picture.file)
-        # Direct string assignment is correct here as we are building a simple dict
         update_fields["image_url"] = upload_result["secure_url"]
         update_fields["image_public_id"] = upload_result["public_id"]
         
